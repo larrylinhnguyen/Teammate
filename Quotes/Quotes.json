@@ -1,0 +1,419 @@
+{
+	"quote": [{
+		"words": "The most important thing is to enjoy your life - to be happy - it's all that matters.",
+		"author": "Audrey Hepburn",
+		"image": "Happiness.jpg",
+		"category": {
+			"type": "Happiness"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "The purpose of our lives is to be happy.",
+		"author": " Dalai Lama",
+		"image": "Happiness.jpg",
+		"category": {
+			"type": "Happiness"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "If you want to be happy, be.",
+		"author": "Leo Tolstoy",
+		"image": "Happiness.jpg",
+		"category": {
+			"type": "Happiness"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Most folks are as happy as they make up their minds to be. ",
+		"author": "Abraham Lincoln",
+		"image": "Happiness.jpg",
+		"category": {
+			"type": "Happiness"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Love isn't something you find. Love is something that finds you.",
+		"author": "Loretta Young",
+		"image": "Love.jpg",
+		"category": {
+			"type": "Love"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Love is when the other person's happiness is more important than your own.",
+		"author": "H. Jackson Brown, Jr",
+		"image": "Love.jpg",
+		"category": {
+			"type": "Love"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Sometimes the heart sees what is invisible to the eye.",
+		"author": "H. Jackson Brown, Jr",
+		"image": "Love.jpg",
+		"category": {
+			"type": "Love"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "A flower cannot blossom without sunshine, and man cannot live without love.",
+		"author": "Max Muller",
+		"image": "Love.jpg",
+		"category": {
+			"type": "Love"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Love all, trust a few, do wrong to none.",
+		"author": "William Shakespeare",
+		"image": "Trust.jpg",
+		"category": {
+			"type": "Trust"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "To be trusted is a greater compliment than being loved.",
+		"author": " George MacDonald",
+		"image": "Trust.jpg",
+		"category": {
+			"type": "Trust"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "The trust of the innocent is the liar's most useful tool.",
+		"author": "Stephen King",
+		"image": "Trust.jpg",
+		"category": {
+			"type": "Trust"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "A lie can travel half way around the world while the truth is putting on its shoes.",
+		"author": "Charles Spurgeon",
+		"image": "Trust.jpg",
+		"category": {
+			"type": "Trust"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "We must accept finite disappointment, but never lose infinite hope.",
+		"author": "Martin Luther King, Jr",
+		"image": "Hope.jpg",
+		"category": {
+			"type": "Hope"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Hope is a waking dream.",
+		"author": "Aristotle",
+		"image": "Hope.jpg",
+		"category": {
+			"type": "Hope"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Let your hopes, not your hurts, shape your future.",
+		"author": "Robert H. Schuller",
+		"image": "Hope.jpg",
+		"category": {
+			"type": "Hope"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "I am prepared for the worst, but hope for the best.",
+		"author": "Benjamin Disraeli",
+		"image": "Hope.jpg",
+		"category": {
+			"type": "Hope"
+		},
+		"status": {
+			"isPositive": true
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "The word 'happiness' would lose its meaning if it were not balanced by sadness.",
+		"author": "Carl Jung",
+		"image": "Sadness.jpg",
+		"category": {
+			"type": "Sadness"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "We never taste a perfect joy; our happiest successes are mixed with sadness. Pierre Corneille",
+		"author": "Audrey Hepburn",
+		"image": "Sadness.jpg",
+		"category": {
+			"type": "Sadness"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "You get used to sadness, growing up in the mountains, I guess.",
+		"author": "Loretta Lynn",
+		"image": "Sadness.jpg",
+		"category": {
+			"type": "Sadness"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "The walls we build around us to keep sadness out also keeps out the joy.",
+		"author": "Jim Rohn",
+		"image": "Sadness.jpg",
+		"category": {
+			"type": "Sadness"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "God will never give you anything you can't handle, so don't stress.",
+		"author": " Kelly Clarkson",
+		"image": "Stress.jpg",
+		"category": {
+			"type": "Stress"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Its not stress that kills us, it is our reaction to it. ",
+		"author": "Hans Selye",
+		"image": "Stress.jpg",
+		"category": {
+			"type": "Stress"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Stress is nothing more than a socially acceptable form of mental illness. ",
+		"author": "Richard Carlson",
+		"image": "Stress.jpg",
+		"category": {
+			"type": "Stress"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "The main way to reduce stress in the workplace is by picking the right people. ",
+		"author": "Jesse Schell",
+		"image": "Stress.jpg",
+		"category": {
+			"type": "Stress"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "The only thing an actor owes his public is not to bore them.",
+		"author": " Marlon Brando",
+		"image": "Bore.jpg",
+		"category": {
+			"type": "Bore"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "The secret of being a bore... is to tell everything. ",
+		"author": "Voltaire",
+		"image": "Bore.jpg",
+		"category": {
+			"type": "Bore"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "A bore is a person who opens his mouth and puts his feats in it. ",
+		"author": "Henry Ford",
+		"image": "Bore.jpg",
+		"category": {
+			"type": "Bore"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Perhaps the world's second worst crime is boredom. The first is being a bore. ",
+		"author": "Jean Baudrillard",
+		"image": "Bore.jpg",
+		"category": {
+			"type": "Bore"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "The time will come when it will disgust you to look in the mirror.",
+		"author": "Rose Kennedy",
+		"image": "Disgust.jpg",
+		"category": {
+			"type": "Disgust"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "Sameness is the mother of disgust, variety the cure. ",
+		"author": "Petrarch",
+		"image": "Disgust.jpg",
+		"category": {
+			"type": "Disgust"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "The greatest pleasures are only narrowly separated from disgust.",
+		"author": "Marcus Cicero",
+		"image": "Disgust.jpg",
+		"category": {
+			"type": "Disgust"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }, {
+		"words": "If there is a God, the phrase that must disgust him is - holy war. ",
+		"author": "Steve Allen",
+		"image": "Disgust.jpg",
+		"category": {
+			"type": "Disgust"
+		},
+		"status": {
+			"isPositive": false
+		},
+        "love": {
+            "isLove": false
+        }
+    }]
+}
