@@ -1,9 +1,9 @@
 //
 //  homeViewController.swift
-//  Quotes
+//  Teammate
 //
-//  Created by Larry on 9/7/16.
-//  Copyright © 2016 Larry Skyla. All rights reserved.
+//  Created by Larry on 1/3/17.
+//  Copyright © 2017 Savings iOS Dev. All rights reserved.
 //
 
 import UIKit
@@ -11,99 +11,64 @@ import CoreData
 import Social
 
 
-
-
-
 @available(iOS 10.0, *)
 class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-    
-
-    let appDel = UIApplication.shared.delegate as! AppDelegate
-    
-    
-    
-    var addPredicate : NSPredicate!
-    var sortDesc = [NSSortDescriptor]()
-    var request : NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Quote")
-    
+       
     @IBOutlet weak var homeGuildLabel: UILabel!
     
-    @IBOutlet weak var segmentBorderButton: UIButton!
     @IBOutlet weak var didSaveLabel: UILabel!
-    var isPositive : Bool = true
-    var isLove : Bool = false
+
+    var teammates : [Teammate]   = []
     
-   
-    var loveQuotes : [Quote] = []
-    var quotes : [Quote]   = []
-    
-    let coreData = CoreData()
-    var managedObjectContext: NSManagedObjectContext!
-    
-    
+    var context: NSManagedObjectContext!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-               
-        // Do any additional setup after loading the view.
-    }
+    let request : NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Teammate")
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         loadData()
-        
-        self.segmentBorderButton.layer.cornerRadius = 3
-        
-        self.segmentBorderButton.layer.borderColor = ColorSheet().pinkColor.cgColor
-        self.segmentBorderButton.layer.borderWidth = 3
-        
+        tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        request.returnsObjectsAsFaults = false
+        tableView.delegate = self
+        tableView.dataSource = self
         self.homeGuildLabel.layer.borderColor = ColorSheet().loveNavy.cgColor
         self.homeGuildLabel.layer.borderWidth = 2
         self.homeGuildLabel.layer.cornerRadius = 4
+        self.homeGuildLabel.isHidden = false
+        let image = UIImage(named:"red.png")
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 38, height: 38))
+        imageView.image = image
+        self.navigationItem.titleView = imageView
+        tableView.backgroundColor = UIColor.clear
         
-     
+        let BGImageGIF = UIImage.gif(name: "BG")
         
-       self.homeGuildLabel.isHidden = false
+        let BGImageGIFImageView = UIImageView(image: BGImageGIF)
+        BGImageGIFImageView.addBlurEffect()
+        BGImageGIFImageView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        self.view.addSubview(BGImageGIFImageView)
+        self.view.sendSubview(toBack: BGImageGIFImageView)
+        self.view.bringSubview(toFront: tableView)
         
-       UIView.animate(withDuration: 1.5, delay: 4.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: [.curveLinear], animations: {
+        UIView.animate(withDuration: 1.5, delay: 4.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: [.curveLinear], animations: {
         
         self.homeGuildLabel.layer.position.x = self.homeGuildLabel.layer.position.x + 400
+        
         
 
         }, completion: nil)
         
-        delay(4.0) {
+        delay(2.0) {
             self.homeGuildLabel.isHidden = true
         }
         
-        
-
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-          
-        
-        super.viewWillAppear(animated)
-        let image = UIImage(named:"Bar Title Image.png")
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 38, height: 38))
-        imageView.image = image
-        self.navigationItem.titleView = imageView
-        
-      
-        
-        loadData()
-        
-    }
-    
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -111,107 +76,9 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
 
-    @IBAction func segmentedAction(_ sender: UISegmentedControl) {
-        
-        let selectedValue = sender.titleForSegment(at: sender.selectedSegmentIndex)
-        
-        if selectedValue == "Positive" {
-            isPositive = true
-        }
-        else if selectedValue == "Negative" {
-            isPositive = false
-        }
-        
-        
-        loadData()
-
-    }
-    //////////  Resize image
-    func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
-        let size = image.size
-        
-        let widthRatio  = targetSize.width  / image.size.width
-        let heightRatio = targetSize.height / image.size.height
-        
-        // Figure out what our orientation is, and use that to form the rectangle
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-            newSize = CGSize(width:size.width * heightRatio,height: size.height * heightRatio)
-        } else {
-            newSize = CGSize(width:size.width * widthRatio,height: size.height * widthRatio)
-        }
-        
-        // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRect(0, 0, newSize.width, newSize.height)
-        
-        // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage!
-    }
-    
-    // time delay func
-    
-    func delay(_ delay:Double, closure:@escaping ()->()) {
-        let when = DispatchTime.now() + delay
-        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
-    }
-    ////////
-    
-    func loadData() {
-        var predicates = [NSPredicate]()
-        
-        let statusPredicate = NSPredicate(format: "status.isPositive = %@", isPositive as CVarArg)
-        if let addPredicate = addPredicate {
-        
-            predicates.append(addPredicate)
-        
-        }
-        predicates.append(statusPredicate)
-        
-        let predicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: predicates)
-        
-        request.predicate = predicate
-        
-        
-        
-        if sortDesc.count > 0 {
-        request.sortDescriptors = sortDesc
-        }
-        
-        do {
-             quotes = try managedObjectContext.fetch(request) as! [Quote]
-            
-            
-            self.tableView.reloadData()
-        
-        
-        } catch {
-        
-            fatalError(" error in loading data from quote entity in core data" )
-        
-        }
-    
-    
-    }
     
     
     // alert function, twitterm facebook, basic alert
-    
-    
-    
-    func alert(_ title: String, msg: String) {
-    
-        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            
-        self.present(alertController, animated: true, completion: nil)
-    
-    }
-    
     
     func sharingTwitterFacebook (){
         
@@ -230,7 +97,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.present(twitterAction, animated: true, completion: nil)
             
             } else {
-                self.alert("No service", msg: "Check If You Logged In Twitter")
+                self.alert(message: "Please check if you logged in", title: "No service")
             
             }
         }
@@ -245,7 +112,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             
             } else {
             
-                self.alert("No service", msg: "Check if you logged in facebook")
+                self.alert(message: "Please check if you logged in", title: "No service")
             }
         }
         
@@ -263,7 +130,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     
     
-    // table view functions
+    // table view delegate and datasource functions
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
@@ -278,6 +145,10 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             cell.layer.transform = CATransform3DIdentity
         }) 
     }
+    
+    
+    
+    //MARK: essential tableview delegate and datasource methods
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -286,70 +157,61 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        return quotes.count
+        return teammates.count
 }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "homeCell", for: indexPath) as! homeTableViewCell
-        let quote = quotes[(indexPath as NSIndexPath).row]
+        
+        let teammate = teammates[(indexPath as NSIndexPath).row]
         
         
         
         //custom cell 
         
         cell.contentView.backgroundColor = UIColor.white
-       
         
         let whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 149))
-        
         whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.227, 0.227, 0.227, 1.0])
         whiteRoundedView.layer.masksToBounds = false
         whiteRoundedView.layer.cornerRadius = 8.0
         
-      
-        
+
         cell.contentView.addSubview(whiteRoundedView)
         cell.contentView.sendSubview(toBack: whiteRoundedView)
 
+       
+        cell.bio.textColor = ColorSheet().prettyLightGreyColor
+        cell.name.textColor = UIColor.white
+        cell.title.textColor = UIColor.white
+        cell.backgroundColor = UIColor.clear
+        cell.name.text = "\(teammate.firstname)" + "" + "\(teammate.lastname)"
+        cell.bio.text = teammate.bio
+        cell.title.text = teammate.title
         
-        cell.wordsLabel.textColor = ColorSheet().prettyLightGreyColor
-        cell.authorLabel.textColor = UIColor.white
-        cell.categoryLabel.textColor = UIColor.white
-        
-        //End custom cell
-        
-        
-        // like and shares activation
-        
-        cell.wordsLabel.text = quote.words
-        cell.authorLabel.text = quote.author
-        cell.categoryLabel.text = quote.category?.type
-        let imageData = quote.image
+        let imageData = teammate.avatar
         
         let image = UIImage(data: imageData! as Data)
-        
-        let newImage  = ResizeImage(image: image!, targetSize: CGSize(width: 40, height: 40))
+        let newImage  = image?.resizeWith(percentage: 0.1)
         cell.imageView?.contentMode = .scaleAspectFit
         
-        cell.imageView?.image = newImage.circleMask
+        cell.imageView?.image = newImage?.circleMask
         
-        
-        
-        
-        
+
+    
         return cell
  }
     
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let quote = self.quotes[indexPath.row]
+        let teammate = self.teammates[indexPath.row]
 
-        //love action
+    //love action
         let love = UITableViewRowAction(style: .normal, title: "Love") { action, index in
             
-                quote.love?.isLove = NSNumber(value: true)
+                teammate.love?.islove = true
             do {
-                try self.managedObjectContext.save()
+                try self.context.save()
                 
             } catch {
             
@@ -367,22 +229,19 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 })
                 
             })
-
-            
         
         self.tableView.setEditing(false, animated: true)
-            
         }
-                
         love.backgroundColor = ColorSheet().pinkColor
         
         
     // Unlove Action
         
         let unLove = UITableViewRowAction(style: .normal, title: "Unlove") { action, index in
-            quote.love?.isLove = NSNumber(value: false)
-        do {
-                try self.managedObjectContext.save()
+            teammate.love?.islove = false
+            
+            do {
+                try self.context.save()
                 
             } catch {
                 fatalError()
@@ -400,19 +259,12 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 UIView.animate(withDuration: 1.0, animations: {
                     self.didSaveLabel.isHidden = true
                 })
-
             })
-            
-            
-            
-            
         }
         
         unLove.backgroundColor = ColorSheet().loveNavy
 
-        
-        
-            //share action
+    //share action
             
         let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
             print("share button tapped")
@@ -424,127 +276,58 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         share.backgroundColor = ColorSheet().prettyLightGreyColor
         
         
-        if quote.love?.isLove == false {
-        return [share, love]
+        if teammate.love?.islove == false {
+            return [share, love]
             
-        } else if quote.love?.isLove == true {
-        
+        } else if teammate.love?.islove == true {
             return [share,unLove]
         }
         
-        
-    return nil
+        return nil
     }
     
-   
-    
-    
+ 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // the cells you would like the actions to appear needs to be editable
         return true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
-       
+    
     
     }
     
-//    //ending swipe
-//        
-//       // Gets a Quote by id
-//    func getById(_ id: NSManagedObjectID) -> Quote? {
-//        return managedObjectContext.object(with: id) as? Quote
-//    }
-//    
-//    // Updates a Quote
-//    func update(_ updatedQuote: Quote){
-//        if let quote = getById(updatedQuote.objectID){
-//            quote.love = updatedQuote.love
-//            
-//        }
-//    }
     
-   
+    // Retrieve data from coredata
     
-    
-    
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueToFilter" {
-            addPredicate = nil
-            sortDesc = []
-            let controller = segue.destination as! FilterTableViewController
-            controller.delegate = self
+    func loadData()  {
+        
+        do {
+            teammates = try context.fetch(request) as! [Teammate]
+             self.tableView.reloadData()
+            print("teammates:\(teammates.count)")
+            for t in teammates {
+                print(t)
+            }
+        } catch {
+            fatalError(" error in loading data from quote entity in core data" )
         
         }
+
     }
     
+    // time delay func
     
-   }
-
-
-//extension for Filter
-@available(iOS 10.0, *)
-extension HomeViewController: filterTableViewControllerProtocal {
-    func updateQuoteList(_ filter: NSPredicate?, sort: NSSortDescriptor?) {
-        if let filter = filter {
-        
-            addPredicate = filter
-        
-        }
-        
-        if let sort = sort {
-        
-            sortDesc.append(sort)
-        
-        }
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        let when = DispatchTime.now() + delay
+        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
-    
-    
+
+
 }
 
-// extension for color
 
-extension UIColor {
-    
-    
-    static func colorWithRedValue(_ redValue: CGFloat, greenValue: CGFloat, blueValue: CGFloat, alpha: CGFloat) -> UIColor {
-        return UIColor(red: redValue/255.0, green: greenValue/255.0, blue: blueValue/255.0, alpha: alpha)
-    }
-    
-    }
 
-//extension imge masking
-
-extension UIImage {
-    var circleMask: UIImage {
-        let square = size.width < size.height ? CGSize(width: size.width, height: size.width) : CGSize(width: size.height, height: size.height)
-        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: square))
-        imageView.contentMode = UIViewContentMode.scaleAspectFill
-        imageView.image = self
-        imageView.layer.cornerRadius = square.width/2
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.layer.borderWidth = 5
-        imageView.layer.masksToBounds = true
-        UIGraphicsBeginImageContext(imageView.bounds.size)
-        imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let result = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return result!
-    }
-}
-
-extension UITabBar {
-    
-    override open func sizeThatFits(_ size: CGSize) -> CGSize {
-        super.sizeThatFits(size)
-        var sizeThatFits = super.sizeThatFits(size)
-        sizeThatFits.height = 80
-        return sizeThatFits
-    }
-}
 
 
 

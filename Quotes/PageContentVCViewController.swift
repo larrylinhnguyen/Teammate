@@ -1,10 +1,11 @@
 //
 //  PageContentVCViewController.swift
-//  Quotes
+//  Teammate
 //
-//  Created by Larry on 9/28/16.
-//  Copyright © 2016 Larry Skyla. All rights reserved.
+//  Created by Larry on 1/3/17.
+//  Copyright © 2017 Savings iOS Dev. All rights reserved.
 //
+
 
 import UIKit
 

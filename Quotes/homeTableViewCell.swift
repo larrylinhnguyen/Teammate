@@ -1,19 +1,18 @@
 //
 //  homeTableViewCell.swift
-//  Quotes
+//  Teammate
 //
-//  Created by Larry on 9/7/16.
-//  Copyright © 2016 Larry Skyla. All rights reserved.
+//  Created by Larry on 1/3/17.
+//  Copyright © 2017 Savings iOS Dev. All rights reserved.
 //
-
 import UIKit
 
 class homeTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var quoteImage: UIImageView!
-    @IBOutlet weak var wordsLabel: UILabel!
-    @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var bio: UILabel!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var title: UILabel!
    
     
    

@@ -1,9 +1,7 @@
+//  Teammate
 //
-//  PageViewController.swift
-//  Quotes
-//
-//  Created by Larry on 9/28/16.
-//  Copyright © 2016 Larry Skyla. All rights reserved.
+//  Created by Larry on 1/3/17.
+//  Copyright © 2017 Savings iOS Dev. All rights reserved.
 //
 
 import UIKit
@@ -11,11 +9,9 @@ import UIKit
 class PageViewController: UIPageViewController {
     
    
-    var imageArray: NSArray! = ["Login Home Image","Login Heart Image","Login Radom Image","Login Note Image"]
-    var headerArray : NSArray! = [" Welcome To PINC  ", "Love A Quote", " Pick A Random", "Create A Quote"]
-    
-    var ContentArray : NSArray! = ["Start Your Day With An Emotion","Press The Love To Love, Press The Share to Share","You Can Simply Press The Button To Generate A Random Quote"," You Can Create Your Own Quote With A Picture"]
-    
+    var imageArray: NSArray! = ["red.png","silver.png","blue.png"]
+    var headerArray : NSArray! = [" Welcome To TEAMCOFFEE  ", "List of Teammates", " Add To Love Folder"]
+    var ContentArray : NSArray! = ["Find out about your future teammate","Slide to love", "Find a random teammate"]
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent

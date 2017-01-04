@@ -1,10 +1,11 @@
 //
 //  StartVC.swift
-//  Quotes
+//  Teammate
 //
-//  Created by Larry on 9/28/16.
-//  Copyright © 2016 Larry Skyla. All rights reserved.
+//  Created by Larry on 1/3/17.
+//  Copyright © 2017 Savings iOS Dev. All rights reserved.
 //
+
 
 import UIKit
 import CoreData
@@ -13,11 +14,9 @@ import CoreData
 class StartVC: UIViewController {
     
     let color = ColorSheet()
-    let coreData = CoreData()
+    let appDel = UIApplication.shared.delegate as! AppDelegate
+    var context : NSManagedObjectContext!
     @IBOutlet weak var imageView: UIImageView!
-
-  
-    
     @IBOutlet weak var nameImage: UIImageView!
   
     
@@ -25,24 +24,19 @@ class StartVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //initial logolabel
-       
+        context = appDel.context
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
-        
-    
-        
-        delay(3.0) {
-          self.displayWalk()
-    
-    
-
+        self.displayWalk()
         }
-        
-        
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     // func: check if has displayed walkthrough
@@ -65,14 +59,10 @@ class StartVC: UIViewController {
             }
         }
         
-        
+        // if displayed, go ahead to main viewcontrollers
         if displayedWalkThrough  {
             
-           
             let appDelegate = UIApplication.shared.delegate! as! AppDelegate
-            
-//            self.performSegueWithIdentifier("segueToTab", sender: nil)
-
             
             let tabController = self.storyboard!.instantiateViewController(withIdentifier: "tabbarVC") as! UITabBarController
             
@@ -81,84 +71,18 @@ class StartVC: UIViewController {
             
             let homeNavViewController = tabController.viewControllers![0] as! UINavigationController
             let homeViewController = homeNavViewController.topViewController as! HomeViewController
-            homeViewController.managedObjectContext = coreData.managedObjectContext
+            homeViewController.context = context
             
             let loveNavViewController = tabController.viewControllers![1] as! UINavigationController
             let loveViewController = loveNavViewController.topViewController as! LoveViewController
-            loveViewController.managedObjectContext = coreData.managedObjectContext
+            loveViewController.context = context
             
             let randomNavViewController = tabController.viewControllers![2] as! UINavigationController
             let randomViewController = randomNavViewController.topViewController as! RandomTableViewController
-            randomViewController.managedObjectContext = coreData.managedObjectContext
+            randomViewController.context = context
             
-            let profileNavViewController = tabController.viewControllers![3] as! UINavigationController
-            let profileViewController = profileNavViewController.topViewController as! ProfileViewController
-            profileViewController.managedObjectContext  = coreData.managedObjectContext
-            
-          
-           
-            
-
-            
-
-                    }
+        }
         
     }
-    
-    
-        
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
-    //add image and blur
-    
-    func BGIMAGEandBlur () {
-        
-        imageView.frame = CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: view.bounds.height)
-        imageView.image = UIImage(named:"iphoneBG Image")
-        
-        
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
-    
-      
-        view.addSubview(blurEffectView)
-        view.addSubview(imageView)
-        
-        view.sendSubview(toBack: blurEffectView)
-        
-        view.sendSubview(toBack: imageView)
-        
-        
-        
-    }
-    
-    func delay(_ delay:Double, closure:@escaping ()->()) {
-        let when = DispatchTime.now() + delay
-        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
-    }
-
-
-    
    }
-//
-//let url = NSBundle.mainBundle().URLForResource("Login", withExtension: "gif")
-//let imageData = NSData(contentsOfURL: url!)
-//
-//let imageGIF = UIImage.gifWithData(imageData!)
-//imageView = UIImageView(image: imageGIF)
-//
-//imageView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
-//
-//
-//view.addSubview(imageView)
-//view.sendSubviewToBack(imageView)
-//
-
