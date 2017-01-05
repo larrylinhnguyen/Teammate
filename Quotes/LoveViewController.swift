@@ -40,7 +40,12 @@ class LoveViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         
-        loadData()
+        let BGImageGIF = UIImage(named: "BG")
+        let BGImageView = UIImageView(image: BGImageGIF)
+        BGImageView.addBlurEffect()
+        BGImageView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        self.view.addSubview(BGImageView)
+        self.view.sendSubview(toBack: BGImageView)
 
         guildLabel.layer.borderWidth = 4
         guildLabel.layer.borderColor = color.pinkColor.cgColor
@@ -50,6 +55,7 @@ class LoveViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         imageView.image = image
         self.navigationItem.titleView = imageView
+        loadData()
         
     }
   
@@ -141,14 +147,15 @@ class LoveViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             
             let loveMate = self.loveMates[indexPath.row]
             
-            loveMate.love?.islove = false
+            loveMate.isLove = false
+            
             
             do {
                 try self.context.save()
             } catch {
                 fatalError()
             }
-        
+            self.loadData()
             self.tableView.setEditing(false, animated: true)
             self.tableView.reloadData()
         }
@@ -228,7 +235,7 @@ class LoveViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     // MARK: load data
     
     func loadData() {
-        let predicate = NSPredicate(format: "love.islove = %@", true as CVarArg)
+        let predicate = NSPredicate(format: "isLove = %@", true as CVarArg)
         request.predicate = predicate
         do {
             loveMates = try context.fetch(request) as! [Teammate]
